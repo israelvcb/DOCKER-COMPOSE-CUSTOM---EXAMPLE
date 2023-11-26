@@ -1,0 +1,23 @@
+version: "3.9"
+
+## NETWORKS
+networks:
+  ${NETWORK_APLICATION_NAME_01}:
+    driver: bridge
+
+services:
+  ## SERVICE DATA BASE
+  ${SERVICE_DB_NAME}:
+    restart: unless-stopped
+    image: postgres:15.2
+    container_name: ${CONTAINER_DB_NAME}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # volumes:
+    #   - /home/${VOLUME_NAME_DIRECTORY}/SGE/data:/var/lib/postgresql/data
+    ports:
+      - ${EXTERNAL_DB_PORT}:${INTERNAL_DB_PORT}
+    networks:
+      - ${NETWORK_APLICATION_NAME_01}
